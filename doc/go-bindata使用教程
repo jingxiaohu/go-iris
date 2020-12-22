@@ -1,0 +1,13 @@
+地址 https://github.com/go-bindata/go-bindata
+
+1. 安装go-bindata
+go get -u github.com/go-bindata/go-bindata/...
+
+2. 例子
+1) 打包admin目录下的所有静态配置和静态前端文件
+cd  ./admin
+go-bindata -pkg conf -o app/bindata/conf/conf_data.go conf/...
+go-bindata -pkg static -o app/bindata/static/static_data.go resources/...
+
+2) 打包指定静态文件
+go-bindata -pkg <指定包名> -o <目标输出文件,可包含路径> <源文件,可包含路径>

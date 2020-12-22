@@ -1,0 +1,6 @@
+**/*.exe
+*.sum
+.idea/*
+test/
+**/logs/*
+
