@@ -17,17 +17,22 @@ func policyRouter(party iris.Party) {
 	policy := party.Party("/policy")
 	ps := PolicyService{mapper: &mapper.PolicyMapper{}}
 
+	/**
+	  hero.Handler( 这里面传入一个 controller 的具体执行方法)
+	  hero.Handler 就相当于NEW 一个handler 这个handler的入参为  controller
+	*/
 	policy.Post("/", hero.Handler(ps.create))
 	policy.Delete("/", hero.Handler(ps.delete))
 	policy.Put("/", hero.Handler(ps.put))
 	policy.Post("/table", hero.Handler(ps.table)) // 权限管理报表
-	policy.Get("/all", hero.Handler(ps.all))   // 所有权限
+	policy.Get("/all", hero.Handler(ps.all))      // 所有权限
 }
 
 type PolicyService struct {
 	mapper *mapper.PolicyMapper
 }
 
+//这里就相当于 一个controller
 func (ps *PolicyService) create(ctx iris.Context) {
 	var (
 		code support.Code
@@ -54,6 +59,7 @@ ERR:
 	support.InternalServerError(ctx, code)
 }
 
+//这里就相当于 一个controller
 func (ps *PolicyService) delete(ctx iris.Context) {
 	var (
 		code support.Code
@@ -86,6 +92,7 @@ ERR:
 	support.InternalServerError(ctx, code)
 }
 
+//这里就相当于 一个controller
 func (ps *PolicyService) put(ctx iris.Context) {
 	var (
 		code support.Code
@@ -111,12 +118,13 @@ ERR:
 	support.InternalServerError(ctx, code)
 }
 
+//这里就相当于 一个controller
 func (ps *PolicyService) table(ctx iris.Context) {
 	var (
 		err    error
 		code   support.Code
 		vo     = new(vo.RoleVO)
-		total int64
+		total  int64
 		result []*model.CasbinRule
 	)
 	if err = ctx.ReadJSON(vo); err != nil {
@@ -134,6 +142,7 @@ ERR:
 	support.InternalServerError(ctx, code)
 }
 
+//这里就相当于 一个controller
 func (ps *PolicyService) all(ctx iris.Context) {
 	var (
 		err    error
@@ -143,6 +152,7 @@ func (ps *PolicyService) all(ctx iris.Context) {
 	if result, err = ps.mapper.All(); err != nil {
 		goto ERR
 	}
+	//这里就相当于 response 消息
 	support.Ok(ctx, support.CODE_OK, result)
 	return
 ERR:
